@@ -3,7 +3,7 @@
   [
     {
       "type": "qemu",
-      "iso_url": "file:///var/packer/iso/V980470-01.iso",
+      "iso_url": "file:///home/cboyce/packer/iso/V980470-01.iso",
       "iso_checksum": "66bfd40d015d35d4fb27d4bb49de4588",
       "iso_checksum_type": "md5",
       "http_directory": "http",
