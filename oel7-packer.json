@@ -1,0 +1,64 @@
+{
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "file:///var/packer/iso/V980470-01.iso",
+      "iso_checksum": "66bfd40d015d35d4fb27d4bb49de4588",
+      "iso_checksum_type": "md5",
+      "http_directory": "http",
+      "output_directory": "qemu_output",
+      "shutdown_command": "/sbin/shutdown -P now",
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_timeout": "30m",
+      "vm_name": "{{user `vmname`}}",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "qemuargs": [
+          [
+              "-m",
+              "{{user `memory`}}M"
+          ],
+          [
+              "-cpu",
+              "host"
+          ],
+          [
+              "-smp",
+              "{{user `cores`}}"
+          ]
+      ],
+      "boot_wait": "10s",
+      "boot_command": [
+        "<tab> net.ifnames=0 inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/anaconda-ks.cfg<enter><wait>"
+      ]
+    }
+  ],
+
+  "provisioners": [
+    {
+      "environment_vars": [
+        "HOSTNAME={{user `hostname`}}",
+        "IPADDR={{user `ip`}}",
+        "PREFIX={{user `prefix`}}",
+        "GATEWAY={{user `gateway`}}",
+        "DNS1={{user `dns1`}}",
+        "DNS2={{user `dns2`}}",
+        "ULN_USERNAME={{user `uln_username`}}",
+        "ULN_PASSWORD={{user `uln_password`}}",
+        "ULN_CSI={{user `uln_csi`}}"
+       
+      ],
+      "type": "shell",
+      "execute_command": "echo 'cboyce' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+        "scripts/network.sh",
+        "scripts/register.sh",
+        "scripts/docker.sh"
+      ]
+    } 
+  ]
+}
