@@ -20,3 +20,6 @@ yum install -y docker-engine
 echo "<==== Download docker-compose ====>"
 curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VER}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod 755 /usr/local/bin/docker-compose
+
+# Enable at startup
+systemctl enable docker.service
