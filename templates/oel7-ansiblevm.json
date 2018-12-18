@@ -33,7 +33,7 @@
       ],
       "boot_wait": "10s",
       "boot_command": [
-        "<tab> net.ifnames=0 inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/dockervm-ks.cfg<enter><wait>"
+        "<tab> net.ifnames=0 inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ansiblevm-ks.cfg<enter><wait>"
       ]
     }
   ],
@@ -57,7 +57,7 @@
       "scripts": [
         "scripts/network.sh",
         "scripts/register.sh",
-        "scripts/docker.sh"
+        "scripts/ansible.sh"
       ]
     } 
   ]

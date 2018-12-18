@@ -1,7 +1,7 @@
 # Cache objects
 packer_cache/
 qemu_output/
-vars.json
+vars*
 
 # For built boxes
 *.box
