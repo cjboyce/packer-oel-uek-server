@@ -56,8 +56,6 @@
       "execute_command": "echo 'master' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
         "scripts/network.sh",
-        "scripts/register.sh",
-        "scripts/ansible.sh"
       ]
     } 
   ]
