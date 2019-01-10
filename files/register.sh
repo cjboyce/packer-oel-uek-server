@@ -58,9 +58,8 @@ if [ $ULN_USERNAME == 'null' -o $ULN_PASSWORD == 'null' -o $ULN_CSI == 'null' ];
 	exit 1
 fi
 
-
 echo "<==== Registering with ULN ====>"
-/usr/sbin/ulnreg_ks --profilename=${HOST} --username=${ULN_USERNAME} --password=${ULN_PASSWORD} --csi=${ULN_CSI}
+/usr/sbin/ulnreg_ks --force --profilename=${HOST} --username=${ULN_USERNAME} --password=${ULN_PASSWORD} --csi=${ULN_CSI}
 
 echo "<==== Running yum update all ====>"
 yum update -y
