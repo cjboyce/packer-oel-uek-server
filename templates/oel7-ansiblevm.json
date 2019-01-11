@@ -50,13 +50,39 @@
         "ULN_USERNAME={{user `uln_username`}}",
         "ULN_PASSWORD={{user `uln_password`}}",
         "ULN_CSI={{user `uln_csi`}}"
-       
       ],
       "type": "shell",
       "execute_command": "echo 'master' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "scripts/network.sh",
+        "scripts/network.sh"
       ]
-    } 
+    },
+    {
+      "type": "file",
+      "destination": "/tmp/role-id",
+      "source": "files/role-id"
+    },
+    {
+      "type": "file",
+      "destination": "/tmp/register.sh",
+      "source": "files/register.sh"
+    },
+    {
+      "type": "file",
+      "destination": "/tmp/addchannels.sh",
+      "source": "files/addchannels.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'master' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "inline": [ "mkdir /usr/local/etc",
+                  "mv /tmp/role-id /usr/local/etc/",
+                  "chmod 600 /usr/local/etc/role-id", 
+                  "chown master:root /usr/local/etc/role-id",
+                  "mkdir /var/tmp/builds",
+                  "mv /tmp/register.sh /var/tmp/builds/",
+                  "mv /tmp/addchannels.sh /var/tmp/builds/",
+                  "chmod +x /var/tmp/builds/*" ]
+    }
   ]
 }
