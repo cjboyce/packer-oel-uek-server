@@ -68,6 +68,11 @@
       "source": "files/register.sh"
     },
     {
+      "type": "file",
+      "destination": "/tmp/addchannels.sh",
+      "source": "files/addchannels.sh"
+    },
+    {
       "type": "shell",
       "execute_command": "echo 'master' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "inline": [ "mkdir /usr/local/etc",
@@ -76,7 +81,8 @@
                   "chown master:root /usr/local/etc/role-id",
                   "mkdir /var/tmp/builds",
                   "mv /tmp/register.sh /var/tmp/builds/",
-                  "chmod +x /var/tmp/builds/register.sh" ]
+                  "mv /tmp/addchannels.sh /var/tmp/builds/",
+                  "chmod +x /var/tmp/builds/*" ]
     }
   ]
 }
