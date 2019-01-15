@@ -31,13 +31,13 @@ done
 ROLEID=$(cat /usr/local/etc/role-id)
 
 # (b) Unwrap my response-wrap token so I can get my secret ID
-SECRETID=$(curl --header "X-Vault-Token: $WRAP_TOKEN" --request POST $HOSTPORT/v1/sys/wrapping/unwrap 2>/dev/null | jq -r '.data.secret_id')
+SECRETID=$(curl --insecure --header "X-Vault-Token: $WRAP_TOKEN" --request POST $HOSTPORT/v1/sys/wrapping/unwrap 2>/dev/null | jq -r '.data.secret_id')
 
 # (c) Take roleID and secretID and query the API for my token
-VAULT_TOKEN=$(curl --request POST --data \{\"role_id\":\"$ROLEID\",\"secret_id\":\"$SECRETID\"\} $HOSTPORT/v1/auth/approle/login 2>/dev/null | jq -r '.auth.client_token')
+VAULT_TOKEN=$(curl --insecure --request POST --data \{\"role_id\":\"$ROLEID\",\"secret_id\":\"$SECRETID\"\} $HOSTPORT/v1/auth/approle/login 2>/dev/null | jq -r '.auth.client_token')
 
 # (d) Use our token to Authenticate with API and grab our ULN credentials
-ULN_CREDS_JSON=$(curl --header "X-Vault-Token: $VAULT_TOKEN" --request GET $HOSTPORT/v1/secret/ansible/uln 2>/dev/null)
+ULN_CREDS_JSON=$(curl --insecure --header "X-Vault-Token: $VAULT_TOKEN" --request GET $HOSTPORT/v1/secret/ansible/uln 2>/dev/null)
 
 read -r ULN_USERNAME ULN_PASSWORD <<<$(echo $ULN_CREDS_JSON | jq -r '.data.username,.data.password')
 
