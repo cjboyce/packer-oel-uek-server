@@ -60,7 +60,7 @@
     {
       "type": "file",
       "destination": "/tmp/role-id",
-      "source": "files/dockervm_role-id"
+      "source": "files/role-id"
     },
     {
       "type": "file",
